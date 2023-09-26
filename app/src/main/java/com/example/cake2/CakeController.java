@@ -24,7 +24,7 @@ public class CakeController implements View.OnClickListener,
         if (v instanceof Button) {
             Button button = (Button) v;
             if (model.candlesAreLit) {
-                button.setText("Blow out");
+                button.setText("extinguish");
             } else {
                 button.setText("Re-light");
             }
