@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
-public class CakeController implements View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
-    private CakeView view;
-    private CakeModel model;
+public class CakeController implements View.OnClickListener, View.OnTouchListener,
+        CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
+    private final CakeView view;
+    private final CakeModel model;
 
     public CakeController(CakeView view) {
         this.view = view;
@@ -19,10 +19,10 @@ public class CakeController implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        model.candlesAreLit = !model.candlesAreLit;
-        view.invalidate();
-
         if (v instanceof Button) {
+            model.candlesAreLit = !model.candlesAreLit;
+            view.invalidate();
+
             Button button = (Button) v;
             if (model.candlesAreLit) {
                 button.setText("extinguish");
@@ -59,11 +59,13 @@ public class CakeController implements View.OnClickListener,
         //empty
     }
 
-    public boolean onTouch(View v, MotionEvent event)
-    {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.performClick();
         model.x = event.getX();
         model.y = event.getY();
-        v.invalidate();
-        return false;
+        view.invalidate();
+
+        return true;
     }
 }
