@@ -1,15 +1,16 @@
 package com.example.cake2;
 
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
-public class CakeController implements View.OnClickListener,
+public class CakeController implements View.OnClickListener, View.OnTouchListener,
         CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
-    private CakeView view;
-    private CakeModel model;
+    private final CakeView view;
+    private final CakeModel model;
 
     public CakeController(CakeView view) {
         this.view = view;
@@ -18,10 +19,10 @@ public class CakeController implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        model.candlesAreLit = !model.candlesAreLit;
-        view.invalidate();
-
         if (v instanceof Button) {
+            model.candlesAreLit = !model.candlesAreLit;
+            view.invalidate();
+
             Button button = (Button) v;
             if (model.candlesAreLit) {
                 button.setText("extinguish");
@@ -56,5 +57,15 @@ public class CakeController implements View.OnClickListener,
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //empty
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.performClick();
+        model.x = event.getX();
+        model.y = event.getY();
+        view.invalidate();
+
+        return true;
     }
 }

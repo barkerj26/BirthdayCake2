@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
+
 public class CakeView extends SurfaceView {
     private CakeModel model;
 
@@ -17,6 +19,7 @@ public class CakeView extends SurfaceView {
     Paint outerFlamePaint = new Paint();
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
+    Paint textPaint = new Paint();
 
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
@@ -59,6 +62,10 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        textPaint.setColor(0xFFFF0000);
+        textPaint.setStyle(Paint.Style.FILL);
+        textPaint.setTextSize(40);
+        textPaint.setTextAlign(Paint.Align.RIGHT);
 
         setBackgroundColor(Color.WHITE);  //better than black default
         model = new CakeModel();
@@ -105,10 +112,12 @@ public class CakeView extends SurfaceView {
      * This method will draw a birthday cake
      */
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(@NonNull Canvas canvas) {
         //top and bottom are used to keep a running tally as we progress down the cake layers
         float top = cakeTop;
         float bottom = cakeTop + frostHeight;
+
+        canvas.drawText(String.format("x: %.2f y: %.2f", model.x, model.y), 1980, 650, textPaint);
 
         if (model.cakeFrosting) {
             //Frosting on top
