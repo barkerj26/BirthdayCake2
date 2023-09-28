@@ -59,14 +59,13 @@ public class CakeController implements View.OnClickListener,
         //empty
     }
     public boolean onTouch(View v, MotionEvent event){
-        if(event.getAction()==MotionEvent.ACTION_UP){
+        if(event.getAction()==MotionEvent.ACTION_UP || true){
             //figure out where they clicked
-
-
-            //add checker
+            model.x = event.getX();
+            model.y = event.getY();
 
             //update view
-
+            view.invalidate();
             //return consumed
             return true;
         }

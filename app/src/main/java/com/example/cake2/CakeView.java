@@ -61,7 +61,9 @@ public class CakeView extends SurfaceView {
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
         checkerPaint.setColor(Color.RED);
+        checkerPaint.setStyle(Paint.Style.FILL);
         boardPaint.setColor(Color.GREEN);
+        boardPaint.setStyle(Paint.Style.FILL);
 
         setBackgroundColor(Color.WHITE);  //better than black default
         model = new CakeModel();
@@ -101,8 +103,13 @@ public class CakeView extends SurfaceView {
 
 
     }
-    public void drawChecker(Canvas canvas, float left, float top, float right, float bottom){
-        canvas.drawRect()
+    public void drawChecker(Canvas canvas){
+        canvas.drawRect(model.x-0, model.y -25 , model.x + 50 , model.y + 25, checkerPaint);
+        canvas.drawRect(model.x-50, model.y -25 , model.x + 0 , model.y + 25, boardPaint);
+        canvas.drawRect(model.x-0, model.y +25 , model.x + 50 , model.y + 75, boardPaint);
+        canvas.drawRect(model.x-50, model.y +25 , model.x + 0 , model.y + 75, checkerPaint);
+
+
 
     }
 
@@ -142,6 +149,8 @@ public class CakeView extends SurfaceView {
             canvas.drawRect(cakeLeft, cakeTop, cakeLeft + cakeWidth,
                     cakeTop + frostHeight * 2 + layerHeight * 2, cakePaint);
         }
+
+        drawChecker(canvas);
 
         //Make candles if needed
         if (model.cakeCandles) {
