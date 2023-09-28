@@ -17,6 +17,9 @@ public class CakeView extends SurfaceView {
     Paint outerFlamePaint = new Paint();
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
+    Paint balloonPaint = new Paint();
+    Paint sq1Paint = new Paint();
+    Paint sq2Paint = new Paint();
 
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
@@ -59,6 +62,12 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        balloonPaint.setColor(Color.BLUE);
+        balloonPaint.setStyle(Paint.Style.FILL);
+        sq1Paint.setColor(Color.RED);
+        sq1Paint.setStyle(Paint.Style.FILL);
+        sq2Paint.setColor(Color.GREEN);
+        sq2Paint.setStyle(Paint.Style.FILL);
 
         setBackgroundColor(Color.WHITE);  //better than black default
         model = new CakeModel();
@@ -77,6 +86,25 @@ public class CakeView extends SurfaceView {
      * draws a candle at a specified position.  Important:  the left, bottom coordinates specify
      * the position of the bottom left corner of the candle
      */
+
+
+
+
+    public void drawBalloon(Canvas canvas){
+        canvas.drawArc(model.x-50, model.y-80, model.x+50, model.y+100,
+                0, 180, true, balloonPaint);
+        canvas.drawArc(model.x-50, model.y-40, model.x+50, model.y+100,
+                180, 180, true, balloonPaint);
+        //canvas.drawRect(model.x,model.y -25, model.x +50, model.y +25, sq1Paint);
+        //canvas.drawRect(model.x-50,model.y-25,model.x,model.y +25, sq2Paint);
+        //canvas.drawRect(model.x,model.y+25,model.x+50,model.y +75, sq2Paint);
+        //canvas.drawRect(model.x-50,model.y+25,model.x,model.y +75, sq1Paint);
+
+
+
+
+    }
+
     public void drawCandle(Canvas canvas, float left, float bottom) {
         canvas.drawRect(left, bottom - candleHeight, left + candleWidth, bottom, candlePaint);
 
@@ -141,6 +169,9 @@ public class CakeView extends SurfaceView {
                 drawCandle(canvas, cakeLeft + (cakeWidth / tW) * i - candleWidth / 2, cakeTop);
             }
         }
+        this.drawBalloon(canvas);
     }//onDraw
+
+
 }//class CakeView
 
